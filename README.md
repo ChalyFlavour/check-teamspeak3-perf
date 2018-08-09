@@ -41,3 +41,7 @@ hostinfo
 use port=9987
 serverinfo
 ```
+### Required TS3 permissions
+```
+permid=23 permname=b_virtualserver_info_view
+```
