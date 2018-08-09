@@ -424,7 +424,7 @@ class checkTeamspeakPerf
                 $this->echoExit(self::STATE_UNKNOWN, "cannot check packetloss without port of virtual server set");
             }
             if ($this->warningPing != 0 || $this->criticalPing) {
-                $this->echoExit(self::STATE_UNKNOWN, "cannot check packetloss without port of virtual server set");
+                $this->echoExit(self::STATE_UNKNOWN, "cannot check ping without port of virtual server set");
             }
         }
     }
