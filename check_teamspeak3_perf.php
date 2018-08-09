@@ -415,8 +415,8 @@ class checkTeamspeakPerf
         $this->ignoreReservedSlots   = isset($opts['ignore-reserved-slots']) ? true : false;
         $this->ignoreVirtualstatus   = isset($opts['ignore-virtualserverstatus']) ? true : false;
         
-        if ($this->username !== null && $this->password !== null) {
-            $this->echoExit(self::STATE_UNKNOWN, "cant provide a username without a password");
+        if ( ($this->username === null) != ($this->password === null) ) {
+            $this->echoExit(self::STATE_UNKNOWN, "can't provide a username without a password");
         }
 
         if ($this->virtualport == 0) {
