@@ -62,7 +62,7 @@ object CheckCommand "check-teamspeak-perf" {
     "--warning-clients" = "$ts3_clients_warning$"
     "--critical-clients" = "$ts3_clients_critical$"
     /* (int) seconds */
-    "--minmal-uptime" = "$ts3_minimal_uptime$"
+    "--minimal-uptime" = "$ts3_minimal_uptime$"
     "--timeout" = "$ts3_timeout$"
     /* (bool) switch */
     "--ignore-reserved-slots" = { set_if = "$ts3_ignore_reserved_slots$" }
