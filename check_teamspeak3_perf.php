@@ -41,6 +41,8 @@ class checkTeamspeakPerf
     private $virtualport = '';
     private $debug = false;
     private $timeout = 10;
+    private $username = null;
+    private $password = null;
     private $perfData = array();
 
     /**
@@ -55,7 +57,9 @@ class checkTeamspeakPerf
         if ($response != 'OK') {
             $this->echoExit(self::STATE_CRITICAL, $response);
         }
-
+        if ($this->username !== null) {
+            $teamspeak->login($this->username, $this->password);
+        }
         if ($this->virtualport == 0) {
             $serviceStatus = $this->fetchAndProcessGlobalPerf($teamspeak);
         } else {
@@ -360,6 +364,8 @@ class checkTeamspeakPerf
                 'port:',
                 'virtualport:',
                 'timeout:',
+                'username:',
+                'password:',
                 'warning-packetloss:',
                 'critical-packetloss:',
                 'warning-ping:',
@@ -381,7 +387,7 @@ class checkTeamspeakPerf
                 "* all checks are optional, they will be executed when a warning and or critical limit has been given" . PHP_EOL .
                 "* when virtualport is not set, uptime & clients check will be done globally, other checks do require the virtualport to be set" . PHP_EOL . PHP_EOL .
                 'Usage:' . PHP_EOL .
-                '--host <localhost> --port <10011> [--virtualport <portnr>] ' . PHP_EOL .
+                '--host <localhost> --port <10011> [--virtualport <portnr>] [--username <username> --password <password>]' . PHP_EOL .
                 '[--warning-packetloss <percentage>] [--critical-packetloss <percentage>] ' . PHP_EOL .
                 '[--warning-ping <ms>] [--critical-ping <ms>] ' . PHP_EOL .
                 '[--warning-clients <percent>] [--critical-clients <percentage>]' . PHP_EOL .
@@ -396,6 +402,8 @@ class checkTeamspeakPerf
         $this->telnetport            = isset($opts['port']) ? intval($opts['port']) : 10011;
         $this->virtualport           = isset($opts['virtualport']) ? intval($opts['virtualport']) : 0;
         $this->debug                 = isset($opts['debug']) ? true : false;
+        $this->username              = isset($opts['username']) ? $opts['username'] : null;
+        $this->password              = isset($opts['password']) ? $opts['password'] : null;
         $this->timeout               = isset($opts['timeout']) ? intval($opts['timeout']) : 10;
         $this->warningPacketLoss     = isset($opts['warning-packetloss']) ? floatval($opts['warning-packetloss']) : 0;
         $this->criticalPacketLoss    = isset($opts['critical-packetloss']) ? floatval($opts['critical-packetloss']) : 0;
@@ -406,6 +414,10 @@ class checkTeamspeakPerf
         $this->criticalClientPercent = isset($opts['critical-clients']) ? intval($opts['critical-clients']) : 0;
         $this->ignoreReservedSlots   = isset($opts['ignore-reserved-slots']) ? true : false;
         $this->ignoreVirtualstatus   = isset($opts['ignore-virtualserverstatus']) ? true : false;
+        
+        if ($this->username !== null && $this->password !== null) {
+            $this->echoExit(self::STATE_UNKNOWN, "cant provide a username without a password");
+        }
 
         if ($this->virtualport == 0) {
             if ($this->warningPacketLoss != 0 || $this->criticalPacketLoss) {
