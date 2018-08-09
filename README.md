@@ -50,20 +50,20 @@ object CheckCommand "check-teamspeak-perf" {
   command = [ "/path/to/your/check_teamspeak3_perf.php" ]
   arguments = {
     "--host" = "$ts3_host$"
-    "--port" = $ts3_port$
+    "--port" = "$ts3_port$"
     "--virtualport" = "$ts3_virtualport$"
     "--username" = "$ts3_username$"
     "--password" = "$ts3_password$"
     /* (int) percentage */
-    "--warning-packetloss" = $ts3_packetloss_warning$
-    "--critical-packetloss" = $ts3_packetloss_critical$
-    "--warning-ping" = $ts3_ping_warning$
-    "--critical-ping" = $ts3_ping_critical$
-    "--warning-clients" = $ts3_clients_warning$
-    "--critical-clients" = $ts3_clients_critical$
+    "--warning-packetloss" = "$ts3_packetloss_warning$"
+    "--critical-packetloss" = "$ts3_packetloss_critical$"
+    "--warning-ping" = "$ts3_ping_warning$"
+    "--critical-ping" = "$ts3_ping_critical$"
+    "--warning-clients" = "$ts3_clients_warning$"
+    "--critical-clients" = "$ts3_clients_critical$"
     /* (int) seconds */
-    "--minmal-uptime" = $ts3_minimal_uptime$
-    "--timeout" = $ts3_timeout$
+    "--minmal-uptime" = "$ts3_minimal_uptime$"
+    "--timeout" = "$ts3_timeout$"
     /* (bool) switch */
     "--ignore-reserved-slots" = { set_if = "$ts3_ignore_reserved_slots$" }
     "--ignore-virtualserverstatus" = { set_if = "$ts3_ignore_virtualserverstatus$" }
