@@ -15,6 +15,7 @@ Usage
 
 This check is tested working on:
 * Ubuntu 16.04 - PHP 7.0
+* Debian 9 - PHP 7.0 - Teamspeak 3.2.0
 
 no need for query login, all metrics are public
 ```
