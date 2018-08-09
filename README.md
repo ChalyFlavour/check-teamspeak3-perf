@@ -19,6 +19,7 @@ This check is tested working on:
 no need for query login, all metrics are public
 ```
 ./check_teamspeak3_perf --host <localhost> --port <10011> [--virtualport <portnr>]
+[--username <username> --password <password>]
 [--warning-packetloss <percentage>] [--critical-packetloss <percentage>]
 [--warning-ping <ms>] [--critical-ping <ms>]
 [--warning-clients <percent>] [--critical-clients <percentage>]
