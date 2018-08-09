@@ -8,8 +8,6 @@ PHP based teamspeak server performance check, for global or virtual server:
 * average ping
 * uptime
 
-![Icinga2TeamspeakPerf](https://img.seosepa.net/check_teamspeak3_perf.png)
-
 Usage
 -------------
 
@@ -45,4 +43,43 @@ serverinfo
 ### Required TS3 permissions
 ```
 permid=23 permname=b_virtualserver_info_view
+```
+### Example checkcommand configuration for Icinga2
+```
+object CheckCommand "check-teamspeak-perf" {
+  command = [ "/path/to/your/check_teamspeak3_perf.php" ]
+  arguments = {
+    "--host" = "$ts3_host$"
+    "--port" = $ts3_port$
+    "--virtualport" = "$ts3_virtualport$"
+    "--username" = "$ts3_username$"
+    "--password" = "$ts3_password$"
+    /* (int) percentage */
+    "--warning-packetloss" = $ts3_packetloss_warning$
+    "--critical-packetloss" = $ts3_packetloss_critical$
+    "--warning-ping" = $ts3_ping_warning$
+    "--critical-ping" = $ts3_ping_critical$
+    "--warning-clients" = $ts3_clients_warning$
+    "--critical-clients" = $ts3_clients_critical$
+    /* (int) seconds */
+    "--minmal-uptime" = $ts3_minimal_uptime$
+    "--timeout" = $ts3_timeout$
+    /* (bool) switch */
+    "--ignore-reserved-slots" = { set_if = "$ts3_ignore_reserved_slots$" }
+    "--ignore-virtualserverstatus" = { set_if = "$ts3_ignore_virtualserverstatus$" }
+  }
+  vars.ts3_host="$address$"
+  vars.ts3_port=10011
+  vars.ts3_virtualport=9997
+  vars.ts3_timeout=10
+  vars.ts3_minimal_uptime=60
+  vars.ts3_packetloss_warning=5
+  vars.ts3_packetloss_critical=10
+  vars.ts3_ping_warning=50
+  vars.ts3_ping_critical=100
+  vars.ts3_clients_warning=40
+  vars.ts3_clients_critical=80
+  vars.ts3_ignore_reserved_slots=false
+  vars.ts3_ignore_virtualserverstatus=false
+}
 ```
