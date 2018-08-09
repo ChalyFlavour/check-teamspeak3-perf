@@ -673,7 +673,9 @@ class Teamspeak3Telnet
      */
     private function parseServerResponse($response)
     {
-        file_put_contents('/tmp/debug.ts3.log', $response . PHP_EOL);
+        if( $this->debug ) {
+            file_put_contents('check_teamspeak3_perf.debug_ts3.log', $response . PHP_EOL);
+        }
         if (strpos($response, 'error id=0 msg=ok') === false) {
             return array('error' => true, 'response' => $response, 'rawresponse' => $response);
         } else {
